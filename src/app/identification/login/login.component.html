@@ -1,0 +1,86 @@
+<div class="row" *ngIf="!isLoading && !isLoggedIn">
+  <div class="col-xs-12">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-xs-12 col-sm-7 form-group">
+          <label for="email">Email</label>
+          <input
+            (change)="onChange()"
+            class="form-control"
+            type="text"
+            formControlName="email"
+            id="email"
+          />
+          <span
+            class="help-block"
+            *ngIf="
+              !loginForm.get('email').valid && loginForm.get('email').touched
+            "
+          >
+            <span
+              class="help-block"
+              *ngIf="loginForm.get('email').errors.required"
+              >Please enter your E-mail</span
+            >
+            <span class="help-block" *ngIf="loginForm.get('email').errors.email"
+              >Please enter a valid E-mail</span
+            >
+          </span>
+        </div>
+
+        <div class="col-xs-12 col-sm-7 form-group">
+          <label for="password">Password</label>
+          <input
+            (change)="onChange()"
+            class="form-control"
+            type="text"
+            formControlName="password"
+            id="password"
+          />
+          <span
+            class="help-block"
+            *ngIf="
+              !loginForm.get('password').valid &&
+              loginForm.get('password').touched
+            "
+          >
+            Please enter password
+          </span>
+        </div>
+
+        <div class="col-xs-12 form-group">
+          <button
+            [disabled]="!loginForm.valid"
+            type="submit"
+            class="btn btn-primary"
+          >
+            Login
+          </button>
+          &nbsp;
+          <a routerLink="/signin" style="text-decoration: underline;"
+            >Sign Up</a
+          >
+        </div>
+
+        <p class="col-xs-12 form-group" *ngIf="wrongUserOrPass">
+          <br />
+          <span class="alert alert-danger">Wrong username or password</span>
+        </p>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="col-xs-12 col-sm-7 form-group" *ngIf="isLoggedIn" style="text-align: center;">
+  <div class="col-xs-12 form-group">
+    <p class="h2">Hello {{ userName }}</p>
+    <p *ngIf="firstShopping" style="color: green;">
+      Welcome to your first shopping!
+    </p>
+    <button (click)="onStartShopping()" class="btn btn-primary">
+      {{ haveCart ? "keep" : "start" }} shopping
+    </button>
+  </div>
+</div>
+
+<app-loading *ngIf="isLoading"></app-loading>

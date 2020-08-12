@@ -1,0 +1,48 @@
+<div class="row center-block">
+    <div class="col-xs-12">
+        <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    <label for="id">ID</label>
+                    <input class="form-control" type="number" id="id" formControlName="id">
+                    <span class="help-block" *ngIf="!signInForm.get('id').valid && signInForm.get('id').touched">
+                        <span class="help-block" *ngIf="signInForm.get('id').errors.required">Please enter your ID</span>
+                        <span class="help-block" *ngIf="signInForm.get('id').errors.idError">ID already exists</span>
+                        <span class="help-block" *ngIf="signInForm.get('id').errors.pattern">Please use only Positive numbers</span>
+                    </span>
+
+                </div>
+
+                <div class="col-xs-12 form-group">
+                    <label for="email">E-mail</label>
+                    <input class="form-control" type="text" id="email" formControlName="email">
+                    <span class="help-block" *ngIf="!signInForm.get('email').valid && signInForm.get('email').touched">
+                        <span class="help-block" *ngIf="signInForm.get('email').errors.required">Please enter your E-mail</span>
+                        <span class="help-block" *ngIf="signInForm.get('email').errors.email">Please enter a valid E-mail</span>
+                    </span>
+                </div>
+
+                <div class="col-xs-12 form-group">
+                    <label for="password">Password</label>
+                    <input class="form-control" type="text" id="password" formControlName="password">
+                    <span class="help-block" *ngIf="!signInForm.get('password').valid && signInForm.get('password').touched">
+                        Please enter your password
+                    </span>
+                </div>
+
+                <div class="col-xs-12 form-group">
+                    <label for="passwordConfirm">Password Confirm</label>
+                    <input class="form-control" type="text" id="passwordConfirm" formControlName="passwordConfirm">
+                    <span class="help-block" *ngIf="signInForm.get('password').valid && !signInForm.get('passwordConfirm').valid && signInForm.get('passwordConfirm').touched">
+                        <span class="help-block" *ngIf="signInForm.errors.passwordNotMatch && !signInForm.get('passwordConfirm').errors.required">Passwords does not match</span>
+                        <span *ngIf="signInForm.get('passwordConfirm').errors.required">Please confirm your password</span>
+                    </span>
+                </div>
+
+                <div class="col-xs-12 form-group">
+                    <button type="submit" class="btn btn-primary" [disabled]="!signInForm.valid">Next Step</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

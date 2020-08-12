@@ -1,0 +1,21 @@
+<div class="row" *ngIf="!collapse" (click)="collapse = !collapse">
+    <span class="glyphicon glyphicon-log-out"></span>
+  </div>
+  
+  <div class="row" *ngIf="collapse" (click)="collapse = !collapse">
+    <span
+      class="glyphicon glyphicon-log-in"
+      style="transform: rotate(180deg);"
+    ></span>
+  </div>
+
+<div class="row">
+    <div class="col-md-5" *ngIf="collapse">
+        <app-cart></app-cart>
+    </div>
+
+    <div class="col-md-7" [class.fullWidth]="!collapse">
+        <app-products></app-products>
+    </div>
+
+</div>

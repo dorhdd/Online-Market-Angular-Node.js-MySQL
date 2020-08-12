@@ -1,0 +1,47 @@
+<div class="row center-block">
+    <div class="col-xs-12">
+        <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    <label for="city">City</label>
+                    <select class="form-control" type="number" name="" id="city" formControlName="city">
+                        <option></option>
+                        <option *ngFor="let city of cities">{{ city.city_name }}</option>
+                    </select>
+                    <span class="help-block" *ngIf="!signInForm.get('city').valid && signInForm.get('city').touched">
+                        Please enter your city
+                    </span>
+                </div>
+
+                <div class="col-xs-12 form-group">
+                    <label for="street">street</label>
+                    <input class="form-control" type="text" name="" id="street" formControlName="street">
+                    <span class="help-block" *ngIf="!signInForm.get('street').valid && signInForm.get('street').touched">
+                        Please enter your street
+                    </span>
+                </div>
+
+                <div class="col-xs-12 form-group">
+                    <label for="name">Name</label>
+                    <input class="form-control" type="text" name="" id="name" formControlName="name">
+                    <span class="help-block" *ngIf="!signInForm.get('name').valid && signInForm.get('name').touched">
+                        Please enter your name
+                    </span>
+                </div>
+
+                <div class="col-xs-12 form-group">
+                    <label for="lastName">Last Name</label>
+                    <input class="form-control" type="text" name="" id="lastName" formControlName="lastName">
+                    <span class="help-block" *ngIf="!signInForm.get('lastName').valid && signInForm.get('lastName').touched">
+                        Please enter your name
+                    </span>
+                </div>
+
+                <div class="col-xs-12 form-group">
+                    <button type="submit" class="btn btn-primary" [disabled]="!signInForm.valid">Submit</button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>

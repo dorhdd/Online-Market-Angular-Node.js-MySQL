@@ -1,0 +1,77 @@
+<div class="container" style="width: auto;">
+  <div class="col-xs-12">
+    <nav class="navbar navbar-light">
+      <ul class="nav navbar-nav">
+        <li>
+          <a style="cursor: pointer;" (click)="onGetAllProducts()">All</a>
+        </li>
+        <li>
+          <a style="cursor: pointer;" (click)="onGetProductsByCategoryId(111)"
+            >Milk & Eggs</a
+          >
+        </li>
+        <li>
+          <a style="cursor: pointer;" (click)="onGetProductsByCategoryId(222)"
+            >Vegettables & Fruits</a
+          >
+        </li>
+        <li>
+          <a style="cursor: pointer;" (click)="onGetProductsByCategoryId(333)"
+            >Meet & Fish</a
+          >
+        </li>
+        <li>
+          <a style="cursor: pointer;" (click)="onGetProductsByCategoryId(444)"
+            >Wine & Drinks</a
+          >
+        </li>
+        <li>
+          <input
+            type="text"
+            placeholder="Search"
+            [(ngModel)]="productSearch"
+            (keyup)="onSearch()"
+            (keydown.backspace)="onSearch()"
+            class="form-control"
+          />
+        </li>
+      </ul>
+    </nav>
+
+    <div class="row">
+      <ul
+        class="card text-center nav navbar-nav"
+        style="width: 15rem;"
+        *ngFor="let product of products; let i = index"
+      >
+        <li>
+          <img
+            class="card-img-top"
+            style="max-height: 8rem;"
+            src="{{ product.img }}"
+            alt="Card image cap"
+          />
+          <div class="card-body">
+            <p class="card-text">
+              {{ product.product_name | titlecase }} | Price: {{ product.price | number : '1.2-2' }}$
+            </p>
+            <p class="card-text">SKU: {{ product.product_id }}</p>
+          </div>
+          <div class="card-body">
+            <input
+              [(ngModel)]="amount[i]"
+              placeholder="Amount"
+              type="number"
+              min="1"
+              max="500"
+            />
+          </div>
+
+          <div class="card-body">
+            <a style="cursor: pointer;" (click)="onAddToCart(i)" class="card-link">Add to cart</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

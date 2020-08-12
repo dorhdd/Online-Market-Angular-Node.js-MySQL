@@ -1,0 +1,196 @@
+<div class="row">
+  <div class="col-md-5">
+    <div class="container">
+      <div class="row center-block">
+        <div class="col-xs-4">
+          <p *ngIf="productAddedStatus" class="alert alert-success">
+            {{ productAddedMassage }}
+          </p>
+          <form
+            [formGroup]="productForm"
+            (ngSubmit)="onSubmit()"
+            (change)="onChange()"
+          >
+            <p class="h4">Edit Product</p>
+            <hr />
+
+            <div class="row">
+              <div class="col-xs-12 form-group">
+                <label for="productName">Product Name</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  id="productName"
+                  formControlName="productName"
+                />
+                <span
+                  class="help-block"
+                  *ngIf="
+                    !productForm.get('productName').valid &&
+                    productForm.get('productName').touched
+                  "
+                >
+                  Please enter product name
+                </span>
+              </div>
+
+              <div class="col-xs-12 form-group">
+                <label for="categoryId">Category</label>
+                <select
+                  class="form-control"
+                  id="categoryId"
+                  formControlName="categoryId"
+                >
+                  <option>Milk & Eggs</option>
+                  <option>Vegettables & Fruits</option>
+                  <option>Meet & Fish</option>
+                  <option>Wine & Drinks</option>
+                </select>
+                <span
+                  class="help-block"
+                  *ngIf="
+                    !productForm.get('categoryId').valid &&
+                    productForm.get('categoryId').touched
+                  "
+                >
+                  Please choose category
+                </span>
+              </div>
+
+              <div class="col-xs-12 form-group">
+                <label for="price">Price</label>
+                <input
+                  class="form-control"
+                  type="number"
+                  id="price"
+                  formControlName="price"
+                />
+                <span
+                  class="help-block"
+                  *ngIf="
+                    !productForm.get('price').valid &&
+                    productForm.get('price').touched
+                  "
+                >
+                  <span *ngIf="productForm.get('price').errors.required"
+                    >Please enter price</span
+                  >
+                  <span *ngIf="productForm.get('price').errors.pattern"
+                    >Please enter a valid price</span
+                  >
+                </span>
+              </div>
+
+              <div class="col-xs-12 form-group">
+                <label for="imgPath"></label>
+                <input
+                  (change)="onFileSelected($event)"
+                  class="form-control-file"
+                  type="file"
+                  id="img"
+                  formControlName="img"
+                />
+              </div>
+
+              <div class="col-xs-12 form-group">
+                <button
+                  *ngIf="!editMode"
+                  type="submit"
+                  class="btn btn-primary"
+                  [disabled]="!productForm.valid"
+                >
+                  Add
+                </button>
+                <button
+                  *ngIf="editMode"
+                  type="button"
+                  class="btn btn-primary"
+                  (click)="onEditProduct()"
+                >
+                  Edit
+                </button>
+                &nbsp;
+                <a *ngIf="editMode" (click)="onAddMode()">Add Product</a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-7">
+    <div class="container" style="width: auto;">
+      <div class="col-xs-12">
+        <nav class="navbar navbar-light">
+          <ul class="nav navbar-nav">
+            <li>
+              <a style="cursor: pointer;" (click)="onGetAllProducts()">All</a>
+            </li>
+            <li>
+              <a
+                style="cursor: pointer;"
+                (click)="onGetProductsByCategoryId(111)"
+                >Milk & Eggs</a
+              >
+            </li>
+            <li>
+              <a
+                style="cursor: pointer;"
+                (click)="onGetProductsByCategoryId(222)"
+                >Vegettables & Fruits</a
+              >
+            </li>
+            <li>
+              <a
+                style="cursor: pointer;"
+                (click)="onGetProductsByCategoryId(333)"
+                >Meet & Fish</a
+              >
+            </li>
+            <li>
+              <a
+                style="cursor: pointer;"
+                (click)="onGetProductsByCategoryId(444)"
+                >Wine & Drinks</a
+              >
+            </li>
+            <li>
+              <input
+                type="text"
+                placeholder="Search"
+                [(ngModel)]="productSearch"
+                (keyup)="onSearch()"
+                (keydown.backspace)="onSearch()"
+                class="form-control"
+              />
+            </li>
+          </ul>
+        </nav>
+
+        <div class="row">
+          <ul
+            class="card text-center nav navbar-nav"
+            style="width: 15rem;"
+            *ngFor="let product of products; let i = index"
+          >
+            <li (click)="onDataForEdit(i)" style="cursor: pointer;">
+              <img
+                class="card-img-top"
+                style="max-height: 8rem;"
+                src="{{ product.img }}"
+                alt="Card image cap"
+              />
+              <div class="card-body">
+                <p class="card-text">
+                  {{ product.product_name | titlecase }} | Price: {{ product.price | number : '1.2-2' }}$
+                </p>
+                <p class="card-text">SKU: {{ product.product_id }}</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

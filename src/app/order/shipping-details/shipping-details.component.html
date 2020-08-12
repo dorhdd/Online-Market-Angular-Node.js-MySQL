@@ -1,0 +1,125 @@
+<div class="row">
+  <div class="col-xs-12">
+    <p class="h3">Shipping Details</p>
+    <p class="h5">Double click on the fields to load your details</p>
+    <hr />
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-xs-12 form-group">
+          <label for="city">City</label>
+          <select
+            #city
+            (dblclick)="onDblclick()"
+            class="form-control"
+            id="city"
+            formControlName="city"
+          >
+            <option value=""></option>
+            <option *ngFor="let city of cities">{{ city.city_name }}</option>
+          </select>
+          <span
+            class="help-block"
+            *ngIf="
+              !orderForm.get('city').valid && orderForm.get('city').touched
+            "
+            >Please choose your city</span
+          >
+        </div>
+
+        <div class="col-xs-12 form-group">
+          <label for="street">Street</label>
+          <input
+            #street
+            class="form-control"
+            type="text"
+            id="street"
+            formControlName="street"
+            (dblclick)="onDblclick()"
+          />
+          <span
+            class="help-block"
+            *ngIf="
+              !orderForm.get('street').valid && orderForm.get('street').touched
+            "
+            >Please enter your street</span
+          >
+        </div>
+
+        <div class="col-xs-12 form-group">
+          <label for="example-datetime-local-input" class="col-2 col-form-label"
+            >Date</label
+          >
+          <div class="col-10">
+            <input
+              class="form-control"
+              type="date"
+              value="2011-08-19T13:45:00"
+              id="example-datetime-local-input"
+              formControlName="shippingDate"
+            />
+            <span
+              class="help-block"
+              *ngIf="
+                !orderForm.get('shippingDate').valid &&
+                orderForm.get('shippingDate').touched
+              "
+            >
+              <span *ngIf="orderForm.get('shippingDate').errors.required"
+                >Please enter date to shipping</span
+              >
+              <span *ngIf="orderForm.get('shippingDate').errors.shippingError"
+                >No available shipping, please choose another day</span
+              >
+            </span>
+          </div>
+        </div>
+
+        <div class="col-xs-12 form-group">
+          <label for="creditCard">Credit Card</label>
+          <input
+            class="form-control"
+            type="number"
+            id="creditCard"
+            formControlName="cardNumber"
+          />
+          <span
+            class="help-block"
+            *ngIf="
+              !orderForm.get('cardNumber').valid &&
+              orderForm.get('cardNumber').touched
+            "
+          >
+            <span
+              class="help-block"
+              *ngIf="orderForm.get('cardNumber').errors.required"
+              >Please enter credit card number</span
+            >
+            <span
+              class="help-block"
+              *ngIf="
+                orderForm.get('cardNumber').hasError('maxlength') ||
+                orderForm.get('cardNumber').hasError('minlength')
+              "
+              >Please enter 16 length numbers</span
+            >
+          </span>
+        </div>
+
+        <div class="col-xs-12 form-group">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="!orderForm.valid"
+          >
+            Order
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

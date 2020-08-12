@@ -1,0 +1,43 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <a class="navbar-brand">
+        <img
+          class="img-responsive"
+          src="https://w0.pngwave.com/png/31/780/shopping-cart-online-shopping-e-commerce-shopping-png-clip-art.png"
+          style="max-height: 2.5rem;"
+          alt=""
+        />
+      </a>
+      <li routerLinkActive="active">
+        <a
+          routerLink="home"
+          class="navbar-brand"
+          role="button"
+          style="cursor: pointer;"
+          >Home</a
+        >
+      </li>
+      <li *ngIf="isManager" routerLinkActive="active">
+        <a
+          routerLink="addProduct"
+          class="navbar-brand"
+          role="button"
+          style="cursor: pointer;"
+          >Add Product</a
+        >
+      </li>
+    </ul>
+
+    <div class="navbar-collapse text-center">
+      <div class="nav navbar-nav navbar-right">
+        <a role="button" style="cursor: pointer;"
+          >Hello {{ isLoggedIn ? userName : "guest" }}&nbsp;
+        </a>
+        <a style="cursor: pointer;" *ngIf="isLoggedIn" (click)="onLogout()">
+          / Logout</a
+        >
+      </div>
+    </div>
+  </div>
+</nav>
